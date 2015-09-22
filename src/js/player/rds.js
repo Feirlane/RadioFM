@@ -8,12 +8,12 @@ var RDS = function(player) {
 	this.dom_artist = $("#artist");
 	this.dom_program_banner = $("#programBanner");
 
-	this.lfm = lastfm;
+	this.lfm = new LastFM();
 
 	this.checkIfNeedsCorrection = function(track) {
-		this.lfm.trackCorrection(track.name, track.artist.name, (function(data){
+		this.lfm.trackGetCorrection(track.name, track.artist.name, (function(data){
 			if (data.corrections.correction) {
-				this.lfm.trackInfo(data.corrections.correction.track.name,
+				this.lfm.trackGetInfo(data.corrections.correction.track.name,
 							  data.corrections.correction.track.artist.name,
 							  function( data ){
 								  var e = new CustomEvent('new_song', {'detail': {'track': data.track}});
@@ -39,7 +39,7 @@ var RDS = function(player) {
 		 * Since rockfm won't usually play esoteric songs, higher playcounts
 		 * should yield better song matches
 		 */
-		this.lfm.trackInfo(track.artist.name, track.name, (function( data ){
+		this.lfm.trackGetInfo(track.artist.name, track.name, (function( data ){
 			var reversedTrack = data.track;
 			if (reversedTrack && (parseInt(originalTrack.playcount) < parseInt(reversedTrack.playcount))) {
 				this.checkIfNeedsCorrection(reversedTrack);
@@ -52,7 +52,7 @@ var RDS = function(player) {
 	document.addEventListener('new_rds', (function(e) {
 		var track = e.detail.track;
 		if (track) {
-			this.lfm.trackInfo(track.name, track.artist.name, (function(data) { this.checkIfNeedsReversing(data, track)}).bind(this));
+			this.lfm.trackGetInfo(track.name, track.artist.name, (function(data) { this.checkIfNeedsReversing(data, track)}).bind(this));
 		} else {
 			$(this.dom_now_playing).hide();
 			$("body").css({"background-image": ""});
@@ -83,7 +83,7 @@ var RDS = function(player) {
 				$("#trackBio").html("");
 			}
 
-			this.lfm.artistInfo(track.artist.name, (function( artistInfo ) {
+			this.lfm.artistGetInfo(track.artist.name, (function( artistInfo ) {
 				$("#artistImage").attr("src", artistInfo.artist.image[3]["#text"]);
 				$("#artistBio").html(artistInfo.artist.bio.summary);
 				if (artistInfo.artist.image.length > 5) {
