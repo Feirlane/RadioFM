@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>RockFM</title>
+		<link href='//fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link href='css/rockfm.css' rel='stylesheet' type='text/css'>
+		<link href='css/slider.css' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel='icon' href='favicon.ico' type='image/x-icon'>
+		<link rel='shortcut icon' href='favicon.ico' type='image/x-icon'>
+	<body>
+		<div id="wrapper">
+			<header>
+				<audio id="player" muted autoplay>
+					<source src="http://195.55.74.208/cope/rockfm.mp3" type="audio/mpeg"/>
+				</audio>
+				<div id="playerControls">
+					<i id="playPauseButton" class="fa fa-lg fa-pause" ></i>
+					<i id="muteButton" class="fa fa-lg fa-volume-up"></i>
+					<input id="volumeSlider" type="range" name="points" min="0" max="100" step="1">
+					<select id="radioSelector">
+						<option value="RadioRockFM">RockFM</option>
+						<option value="RadioM80">M80 Radio</option>
+					</select>
+				</div>
+			</header>
+			<main>
+			<p id="rockfm" style="text-align:center"><img id="programBanner" src=""></p>
+			<div id="nowplaying" style="display:none">
+				<a class="trackLink" src="#"><h2 id="track"></h2></a> - <a class="artistLink" src="#"><h3 id="artist"></h3></a>
+				<a class="trackLink"><img id="trackImage"/></a>
+				<p class="bio" id="trackBio"></p>
+				<hr style="clear:both;"><!-- Force the remaining content to be below the track image -->
+				<a class="artistLink"><img id="artistImage"/></a>
+				<p class="bio" id="artistBio"></p>
+			</div>
+			<div style="clear:both"></div>
+			<div id="recentContainer">
+			</div>
+			<div style="margin: 5px; clear: both">
+				<a style="display: none" id="lastFmLogIn" href="#"><i class="fa fa-lg fa-lastfm-square"></i> log in  to last.fm to scrobble</a>
+			</div>
+			</main>
+			<footer>
+				<div>
+				</div>
+				<div>
+					song data from <a target="blank_" href="//last.fm"><img src="http://cdn.last.fm/flatness/badges/lastfm_black_small.gif"></a>
+					<br>
+					<a href="#" onClick="showReportDialog()">report an error</a>
+				</div>
+			</footer>
+		</div>
+		<div id="reportOverlay" onClick="dismissReportDialog()">
+			<div id="reportDialog" onClick="event.stopPropagation()">
+				<h3>Report an error</h3><br>
+				<label>Original RockFM Data: </label><input id="reportData" disabled="true"><br>
+				<label>Track:</label><input id="reportTrack" disabled="true"><br>
+				<label>Artist:</label><input id="reportArtist" disabled="true"><br>
+				<br>
+				<label>Suggested Track:</label><input id="suggestedTrack"><br>
+				<label>Suggested Artist:</label><input id="suggestedArtist"><br>
+				<input type="submit" onClick="submitReport()" value="Submit Correction">
+			</div>
+		</div>
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="js/lastfm.min.js"></script>
+		<script src="js/radio.min.js"></script>
+		<script src="js/player.min.js"></script>
+		<script>
+			var player = new Player(new RadioRockFM());
+			document.addEventListener('new_rds', function (e) { console.log(e) }, false);
+			document.addEventListener('new_program', function (e) { console.log(e) }, false);
+			document.addEventListener('new_radio', function (e) { console.log(e) }, false);
+		</script>
+	</body>
+</html>
