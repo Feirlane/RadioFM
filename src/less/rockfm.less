@@ -1,0 +1,238 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)
+ */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 16px;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+	background: #e3e3e3 no-repeat fixed center top / cover ;
+	font-family: 'Open Sans', sans-serif;
+}
+h2 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+h3 {
+	font-size: 1.25em;
+	font-weight: bold;
+}
+main {
+	flex: 1;
+}
+
+#wrapper {
+	background: rgba(255,255,255,0.9);
+	max-width: 980px;
+	margin:0 auto;
+	border-left: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+audio {
+	margin-top:0px;
+	width:100%;
+}
+
+a {
+	color: #0187C5;
+	text-decoration: none;
+	outline: 0;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h2,h3 {
+	display: inline;
+	margin-bottom: 1em;
+}
+
+.info a {
+	text-decoration: none;
+}
+
+.info a:hover {
+	color: #0187C5;
+	text-decoration: underline;
+}
+
+#nowplaying {
+	padding: 0 0.5em;
+}
+
+#nowplaying img {
+	margin: 0.2em;
+	margin-right: 10px;
+	float:left;
+	object-fit: cover; /* Do not scale the image */
+	height: 150px;
+	width: 150px;
+}
+
+#nowplaying p {
+	margin: 1em;
+}
+
+.bio {
+	text-align: justify;
+}
+
+.bio::first-letter {
+	margin-left: 2em;
+}
+
+#reportOverlay {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height:100%;
+	z-index: 1000;
+	background: rgba(0, 0, 0, 0.25);
+	display: none;
+}
+
+#reportOverlay * {
+	z-index: 2000;
+}
+
+#reportDialog {
+	max-width: 500px;
+	margin:0 auto;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	background:#FFF;
+	border: 1px solid #CCC;
+	padding: 5px;
+	z-index: 2000;
+}
+
+footer {
+	font-size:0.75em;
+	text-align: right;
+	padding:1em;
+	border-top: 1px solid #CCC;
+	display: flex;
+	flex-direction: row;
+}
+
+footer div {
+	text-align: left;
+	flex: 1;
+}
+
+footer div + div {
+	text-align: right;
+	flex: 1;
+}
+
+label, input {
+	display: inline;
+}
+
+label {
+	width: 30%;
+	text-align: right;
+}
+
+label + input {
+	width: 30%;
+	margin: 0 30% 0 4%;
+}
+
+#recentContainer {
+	text-align: center;
+}
+
+#recentContainer #recentTracks {
+	display:inline-block;
+	text-align: left;
+}
+
+table, td, tr {
+	margin: 0;
+	padding: 0;
+}
+
+#recentContainer td {
+	margin:0;
+	padding:0;
+	border-top: 1px solid #CCC;
+}
+#recentContainer table .first {
+	background:#FFFCCA;
+}
+
+#recentContainer .scrobblesource {
+	color: #666;
+	font-size: 11px;
+	line-height: 1.36364;
+	padding: 0.5em 0px;
+}
+
+#playerControls {
+	display: flex;
+	margin:0.5em;
+}
+
+#playerControls * {
+	margin: 5px 3px;
+	cursor: pointer;
+}
+
+#playerControls i {
+	width: 1em;
+}
+
+#volumeSlider {
+	flex:100;
+}

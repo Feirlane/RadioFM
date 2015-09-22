@@ -14,6 +14,7 @@ module.exports = function(grunt) {
 				player: 'src/js/player/*.js',
 				html: 'src/',
 				lastfm: 'src/js/lastfm/*.js',
+				less: 'src/less/*.less',
 			},
 			dest: {
 				js: 'build/js/main.min.js',
@@ -21,6 +22,7 @@ module.exports = function(grunt) {
 				player: 'build/js/player.min.js',
 				html: 'build/',
 				lastfm: 'build/js/lastfm.min.js',
+				css: 'build/css/style.css',
 			},
 		},
 		uglify: {
@@ -43,7 +45,17 @@ module.exports = function(grunt) {
 			},
 		},
 		less: {
-
+			production: {
+				options: {
+					plugins: [
+						new (require('less-plugin-autoprefix'))({browsers: ["last 2 versions"]}),
+					],
+					compress: true,
+				},
+				files: {
+					'<%= paths.dest.css %>': '<%= paths.src.less %>',
+				},
+			}
 		},
 		copy: {
 			html: {
@@ -64,5 +76,5 @@ module.exports = function(grunt) {
 		},
 	});
 
-	grunt.registerTask('default', ['copy', 'uglify']);
+	grunt.registerTask('default', ['copy', 'uglify', 'less']);
 };
