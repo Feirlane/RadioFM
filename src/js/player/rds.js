@@ -90,10 +90,13 @@ var RDS = function(player) {
 					$("body").css("background-image", "url('" + artistInfo.artist.image[4]["#text"] + "')");
 				}
 			}).bind(this));
+
+			$("title").text(track.name + " - " + track.artist.name);
 		} else {
 			$(this.dom_now_playing).hide();
 			$("body").css({"background-image": ""});
 			$(this.dom_program_banner).show();
+			$("title").text("RadioFM");
 		}
 	}).bind(this));
 
