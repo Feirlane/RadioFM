@@ -14,6 +14,7 @@ module.exports = function(grunt) {
 				player: 'src/js/player/*.js',
 				html: 'src/',
 				lastfm: 'src/js/lastfm/*.js',
+				config: 'src/js/config.js',
 				less: 'src/less/*.less',
 			},
 			dest: {
@@ -22,6 +23,7 @@ module.exports = function(grunt) {
 				player: 'build/js/player.min.js',
 				html: 'build/',
 				lastfm: 'build/js/lastfm.min.js',
+				config: 'build/js/config.min.js',
 				css: 'build/css/style.css',
 			},
 		},
@@ -41,6 +43,7 @@ module.exports = function(grunt) {
 					'<%= paths.dest.radio %>': ['<%= paths.src.radio %>'],
 					'<%= paths.dest.player %>': ['<%= paths.src.player %>'],
 					'<%= paths.dest.lastfm %>': ['<%= paths.src.lastfm %>'],
+					'<%= paths.dest.config %>': ['<%= paths.src.config %>'],
 				},
 			},
 		},

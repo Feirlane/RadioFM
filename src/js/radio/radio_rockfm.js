@@ -69,7 +69,7 @@ var RadioRockFM = function(){
 	this.songReplacements[["YOUNG RASCALS", "GOOD LOVIN'"]] =
 		["The Young Rascals", "Good Lovin'"];
 
-	var e = new CustomEvent('new_radio', {'detail': {'radio': this}});
+	var e = new CustomEvent('new_radio', {'detail': {'radio': this, 'name': 'RadioRockFM'}});
 	document.dispatchEvent(e);
 };
 

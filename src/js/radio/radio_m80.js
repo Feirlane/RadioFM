@@ -6,7 +6,7 @@ var RadioM80 = function(){
 	this.second_to_last_track = null;
 	this.last_program = null;
 
-	var e = new CustomEvent('new_radio', {'detail': {'radio': this}});
+	var e = new CustomEvent('new_radio', {'detail': {'radio': this, 'name': 'RadioM80'}});
 	document.dispatchEvent(e);
 };
 

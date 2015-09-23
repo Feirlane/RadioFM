@@ -12,7 +12,7 @@
 		<div id="wrapper">
 			<header>
 				<audio id="player" muted autoplay>
-					<source src="http://195.55.74.208/cope/rockfm.mp3" type="audio/mpeg"/>
+					<source src="" type="audio/mpeg"/>
 				</audio>
 				<div id="playerControls">
 					<i id="playPauseButton" class="fa fa-lg fa-pause" ></i>
@@ -64,11 +64,15 @@
 			</div>
 		</div>
 		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.3/js.cookie.min.js"></script>
+		<script src="js/config.min.js"></script>
 		<script src="js/lastfm.min.js"></script>
 		<script src="js/radio.min.js"></script>
 		<script src="js/player.min.js"></script>
 		<script>
-			var player = new Player(new RadioRockFM());
+			var configManager = new ConfigManager();
+			var player = new Player(new window['' + configManager.get_radio()]);
+			player.set_volume(configManager.get_volume());
 			document.addEventListener('new_rds', function (e) { console.log(e) }, false);
 			document.addEventListener('new_program', function (e) { console.log(e) }, false);
 			document.addEventListener('new_radio', function (e) { console.log(e) }, false);

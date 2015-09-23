@@ -5,7 +5,7 @@ var Player = function(radio) {
 	this.volumeSlider = $("#volumeSlider");
 	this.radioSelector = $("#radioSelector");
 
-	this.radio = radio;
+	this.set_radio(radio);
 
 	$(this.radioSelector).on('change input', (function() {
 		console.log($(this.radioSelector).val());
@@ -26,7 +26,6 @@ var Player = function(radio) {
 	$(this.player).on('volumechange', (function() {
 
 		var volume = $(this.player).prop('volume');
-		//Cookies.set('playerVolume', volume, { expires: Infinity });
 
 		if ($(this.player).prop("volume") == 0 || $(this.player).prop("muted")) {
 			$(this.muteButton).removeClass("fa-volume-up");
@@ -35,6 +34,9 @@ var Player = function(radio) {
 			$(this.muteButton).removeClass("fa-volume-off");
 			$(this.muteButton).addClass("fa-volume-up");
 		}
+
+		var e = new CustomEvent('volume_changed', {'detail': {'volume': volume * 100}});
+		document.dispatchEvent(e);
 	}).bind(this));
 
 	/*
@@ -87,4 +89,9 @@ Player.prototype.set_source = function(source) {
 Player.prototype.set_radio = function(radio) {
 	this.radio = radio;
 	this.set_source(radio.stream_url);
+}
+
+Player.prototype.set_volume = function(volume) {
+	$(this.player).prop("volume", volume / 100);
+	$(this.volumeSlider).val($(this.player).prop("volume") * 100);
 }
