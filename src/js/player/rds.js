@@ -61,7 +61,6 @@ var RDS = function(player) {
 	}).bind(this));
 
 	document.addEventListener('new_song', (function(e) {
-		console.log(e);
 		var track = e.detail.track;
 		if (track) {
 			$(this.dom_track).text(track.name);

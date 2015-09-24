@@ -73,9 +73,6 @@
 			var configManager = new ConfigManager();
 			var player = new Player(new window['' + configManager.get_radio()]);
 			player.set_volume(configManager.get_volume());
-			document.addEventListener('new_rds', function (e) { console.log(e) }, false);
-			document.addEventListener('new_program', function (e) { console.log(e) }, false);
-			document.addEventListener('new_radio', function (e) { console.log(e) }, false);
 		</script>
 	</body>
 </html>
