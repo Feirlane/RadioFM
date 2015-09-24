@@ -14,7 +14,7 @@ RadioM80.prototype = Object.create(Radio.prototype);
 RadioM80.prototype.constructor = RadioM80 ;
 
 RadioM80.prototype.radio_name = 'M80 Radio';
-RadioM80.prototype.stream_url = 'http://13393.live.streamtheworld.com/M80RADIO_SC';
+RadioM80.prototype.stream_url = 'http://13303.live.streamtheworld.com/M80RADIO_SC';
 RadioM80.prototype.stream_mimetype = 'audio/mpeg';
 RadioM80.prototype.class_name = 'RadioM80';
 
