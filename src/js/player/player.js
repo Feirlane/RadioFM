@@ -89,6 +89,7 @@ Player.prototype.set_source = function(source) {
 Player.prototype.set_radio = function(radio) {
 	this.radio = radio;
 	this.set_source(radio.stream_url);
+	$(this.radioSelector).val(radio.class_name);
 }
 
 Player.prototype.set_volume = function(volume) {

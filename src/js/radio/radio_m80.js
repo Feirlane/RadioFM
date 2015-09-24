@@ -6,7 +6,7 @@ var RadioM80 = function(){
 	this.second_to_last_track = null;
 	this.last_program = null;
 
-	var e = new CustomEvent('new_radio', {'detail': {'radio': this, 'name': 'RadioM80'}});
+	var e = new CustomEvent('new_radio', {'detail': {'radio': this}});
 	document.dispatchEvent(e);
 };
 
@@ -16,6 +16,7 @@ RadioM80.prototype.constructor = RadioM80 ;
 RadioM80.prototype.radio_name = 'M80 Radio';
 RadioM80.prototype.stream_url = 'http://13393.live.streamtheworld.com/M80RADIO_SC';
 RadioM80.prototype.stream_mimetype = 'audio/mpeg';
+RadioM80.prototype.class_name = 'RadioM80';
 
 RadioM80.prototype.get_current_track = function() {
 	$.get(this.rds_url, this.m80_get_track.bind(this), 'json');

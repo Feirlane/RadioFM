@@ -1,7 +1,7 @@
 var ConfigManager = function() {
 	document.addEventListener('new_radio', function(e) {
-		console.log('ConfigManager: Saving radio: ' + e.detail.name);
-		Cookies.set('radio', e.detail.name, { expires: Infinity });
+		console.log('ConfigManager: Saving radio: ' + e.detail.radio.class_name);
+		Cookies.set('radio', e.detail.radio.class_name, { expires: Infinity });
 	});
 
 	document.addEventListener('volume_changed', function(e) {

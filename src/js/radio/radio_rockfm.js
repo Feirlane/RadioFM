@@ -84,6 +84,7 @@ RadioRockFM.prototype.get_current_track = function() {
 RadioRockFM.prototype.radio_name = 'RockFM';
 RadioRockFM.prototype.stream_url = 'http://195.55.74.208/cope/rockfm.mp3';
 RadioRockFM.prototype.stream_mimetype = 'audio/mpeg';
+RadioRockFM.prototype.class_name = 'RadioRockFM';
 
 RadioRockFM.prototype.rockfm_get_track = function(data) {
 	/*
