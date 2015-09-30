@@ -87,7 +87,7 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			files: ['<%= paths.src.all %>'],
-			tasks: ['copy', 'uglify'],
+			tasks: ['copy', 'uglify', 'less'],
 		},
 	});
 
