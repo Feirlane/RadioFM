@@ -67,15 +67,20 @@ var RDS = function(player) {
 			$(this.dom_artist).text(track.artist.name);
 			$(this.dom_program_banner).hide();
 			$(this.dom_now_playing).show();
-			$("#trackImage").attr("src", "loading.gif");
-			$("#artistImage").attr("src", "loading.gif");
 			$(".trackLink").attr("href", track.url);
 			$(".artistLink").attr("href", track.artist.url);
+
+			var trackImage = $("#trackImage");
+			trackImage.hide();
+			var artistImage = $("#artistImage");
+			artistImage.hide();
+
+			var trackImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png";
 			if (track.album && track.album.image[2]["#text"]) {
-				$("#trackImage").attr("src", track.album.image[2]["#text"]);
-			} else {
-				$("#trackImage").attr("src", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png");
+				trackImageUrl = track.album.image[2]["#text"];
 			}
+			trackImage.one('load', function() { trackImage.show(); }).attr('src', trackImageUrl);
+
 			if (track.wiki) {
 				$("#trackBio").html(track.wiki.summary);
 			} else {
@@ -83,7 +88,7 @@ var RDS = function(player) {
 			}
 
 			this.lfm.artistGetInfo(track.artist.name, (function( artistInfo ) {
-				$("#artistImage").attr("src", artistInfo.artist.image[3]["#text"]);
+				artistImage.one('load', function() { artistImage.show(); }).attr('src', artistInfo.artist.image[3]["#text"]);
 				$("#artistBio").html(artistInfo.artist.bio.summary);
 				if (artistInfo.artist.image.length > 5) {
 					$("body").css("background-image", "url('" + artistInfo.artist.image[4]["#text"] + "')");

@@ -106,16 +106,24 @@ h2,h3 {
 
 #nowplaying {
 	padding: 0 0.5em;
+
+	.updatableImageContainer {
+		margin: 0.2em;
+		margin-right: 10px;
+		float: left;
+		background: url('../assets/images/loading.gif');
+		background-size: 150px 150px;
+		height: 150px;
+		width: 150px;
+
+		img {
+			object-fit: cover; /* Do not scale the image */
+			height: 150px;
+			width: 150px;
+		}
+	}
 }
 
-#nowplaying img {
-	margin: 0.2em;
-	margin-right: 10px;
-	float:left;
-	object-fit: cover; /* Do not scale the image */
-	height: 150px;
-	width: 150px;
-}
 
 #nowplaying p {
 	margin: 1em;
