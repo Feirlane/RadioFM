@@ -16,6 +16,7 @@ module.exports = function(grunt) {
 				lastfm: 'src/js/lastfm/*.js',
 				config: 'src/js/config.js',
 				less: 'src/less/*.less',
+				statics: 'src/assets/',
 			},
 			dest: {
 				js: 'build/js/main.min.js',
@@ -25,6 +26,7 @@ module.exports = function(grunt) {
 				lastfm: 'build/js/lastfm.min.js',
 				config: 'build/js/config.min.js',
 				css: 'build/css/style.css',
+				statics: 'build/assets/',
 			},
 		},
 		uglify: {
@@ -69,6 +71,16 @@ module.exports = function(grunt) {
 						src: ['*.html'],
 						dest: '<%= paths.dest.html %>',
 						filter: 'isFile'
+					},
+				],
+			},
+			assets: {
+				files: [
+					{
+						expand: true,
+						cwd: '<%= paths.src.statics %>',
+						src: ['**'],
+						dest: '<%= paths.dest.statics %>',
 					},
 				],
 			},
