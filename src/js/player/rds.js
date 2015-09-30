@@ -55,7 +55,7 @@ var RDS = function(player) {
 			this.lfm.trackGetInfo(track.name, track.artist.name, (function(data) { this.checkIfNeedsReversing(data, track)}).bind(this));
 		} else {
 			$(this.dom_now_playing).hide();
-			$("body").css({"background-image": ""});
+			$("#background").css({"background-image": ""});
 			$(this.dom_program_banner).show();
 		}
 	}).bind(this));
@@ -91,14 +91,14 @@ var RDS = function(player) {
 				artistImage.one('load', function() { artistImage.show(); }).attr('src', artistInfo.artist.image[3]["#text"]);
 				$("#artistBio").html(artistInfo.artist.bio.summary);
 				if (artistInfo.artist.image.length > 5) {
-					$("body").css("background-image", "url('" + artistInfo.artist.image[4]["#text"] + "')");
+					$("#background").css("background-image", "url('" + artistInfo.artist.image[4]["#text"] + "')");
 				}
 			}).bind(this));
 
 			$("title").text(track.name + " - " + track.artist.name);
 		} else {
 			$(this.dom_now_playing).hide();
-			$("body").css({"background-image": ""});
+			$("#background").css({"background-image": ""});
 			$(this.dom_program_banner).show();
 			$("title").text("RadioFM");
 		}
