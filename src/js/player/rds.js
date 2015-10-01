@@ -63,6 +63,7 @@ var RDS = function(player) {
 	document.addEventListener('new_song', (function(e) {
 		var track = e.detail.track;
 		if (track) {
+			console.log(track);
 			$(this.dom_track).text(track.name);
 			$(this.dom_artist).text(track.artist.name);
 			$(this.dom_program_banner).hide();
@@ -75,11 +76,15 @@ var RDS = function(player) {
 			var artistImage = $("#artistImage");
 			artistImage.hide();
 
-			var trackImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png";
+			// "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png";
 			if (track.album && track.album.image[2]["#text"]) {
-				trackImageUrl = track.album.image[2]["#text"];
+				trackImage.one('load', function() { trackImage.show(); }).attr('src', track.album.image[2]["#text"]);
+			} else {
+				this.lfm.albumGetInfo(track.album.name, track.artist.name, function( albumInfo ) {
+					console.log(albumInfo);
+					trackImage.one('load', function() { trackImage.show(); }).attr('src',  albumInfo.album.image[2]["#text"]);
+				});
 			}
-			trackImage.one('load', function() { trackImage.show(); }).attr('src', trackImageUrl);
 
 			if (track.wiki) {
 				$("#trackBio").html(track.wiki.summary);
@@ -88,7 +93,7 @@ var RDS = function(player) {
 			}
 
 			this.lfm.artistGetInfo(track.artist.name, (function( artistInfo ) {
-				artistImage.one('load', function() { artistImage.show(); }).attr('src', artistInfo.artist.image[3]["#text"]);
+				artistImage.one('load', function() { artistImage.show(); }).attr('src', artistInfo.artist.image[2]["#text"]);
 				$("#artistBio").html(artistInfo.artist.bio.summary);
 				if (artistInfo.artist.image.length > 5) {
 					$("#background").css("background-image", "url('" + artistInfo.artist.image[4]["#text"] + "')");

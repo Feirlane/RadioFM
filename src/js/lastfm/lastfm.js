@@ -38,6 +38,19 @@ LastFM.prototype.trackGetInfo = function(track, artist, callback) {
 	$.get(this.base_url, params, callback);
 }
 
+LastFM.prototype.albumGetInfo = function(album, artist, callback) {
+	callback = callback || console.log;
+	var params = this.get_default_params();
+	params["method"] = "album.getInfo";
+	params["album"] = artist;
+	params["artist"] = artist;
+	params["autocorrect"] = "1";
+	this._sign(params);
+	params["format"] = "json";
+
+	$.get(this.base_url, params, callback);
+}
+
 LastFM.prototype.artistGetInfo = function(artist, callback) {
 	callback = callback || console.log;
 	var params = this.get_default_params();
