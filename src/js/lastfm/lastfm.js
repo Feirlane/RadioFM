@@ -35,7 +35,10 @@ LastFM.prototype.trackGetInfo = function(track, artist, callback) {
 	this._sign(params);
 	params["format"] = "json";
 
-	$.get(this.base_url, params, callback);
+	$.ajax({
+		url: this.base_url,
+		data: params,
+	}).always(callback);
 }
 
 LastFM.prototype.albumGetInfo = function(album, artist, callback) {
@@ -48,7 +51,10 @@ LastFM.prototype.albumGetInfo = function(album, artist, callback) {
 	this._sign(params);
 	params["format"] = "json";
 
-	$.get(this.base_url, params, callback);
+	$.ajax({
+		url: this.base_url,
+		data: params,
+	}).always(callback);
 }
 
 LastFM.prototype.artistGetInfo = function(artist, callback) {
@@ -60,7 +66,10 @@ LastFM.prototype.artistGetInfo = function(artist, callback) {
 	this._sign(params);
 	params["format"] = "json";
 
-	$.get(this.base_url, params, callback);
+	$.ajax({
+		url: this.base_url,
+		data: params,
+	}).always(callback);
 }
 
 LastFM.prototype.trackGetCorrection = function(track, artist, callback) {
@@ -72,7 +81,10 @@ LastFM.prototype.trackGetCorrection = function(track, artist, callback) {
 	this._sign(params);
 	params["format"] = "json";
 
-	$.get(this.base_url, params, callback);
+	$.ajax({
+		url: this.base_url,
+		data: params,
+	}).always(callback);
 }
 
 LastFM.prototype.authGetSession = function(token, callback) {
@@ -90,9 +102,8 @@ LastFM.prototype.authGetSession = function(token, callback) {
 	}).success((function(data) {
 		if (data.session) {
 			this.session_key = data.session.key;
-			callback(data);
 		}
-	}).bind(this));
+	}).bind(this)).always(callback);
 }
 
 LastFM.prototype.userGetInfo = function(callback, user) {
@@ -125,9 +136,9 @@ LastFM.prototype.trackScrobble = function(track, artist, callback) {
 	params["format"] = "json";
 
 	$.ajax({
+		method: 'POST',
 		url: this.base_url,
 		data: params,
-		method: 'POST',
 	}).always(callback);
 }
 
@@ -145,8 +156,8 @@ LastFM.prototype.trackNowPlaying = function(track, artist, callback) {
 	params["format"] = "json";
 
 	$.ajax({
+		method: 'POST',
 		url: this.base_url,
 		data: params,
-		method: 'POST',
 	}).always(callback);
 }
