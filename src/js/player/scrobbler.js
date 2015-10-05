@@ -35,7 +35,11 @@ var LastFMClient = function(radio) {
 
 		if (this.lastTrack) {
 			if (!this.lastScrobbledTrack || (this.lastTrack.name != this.lastScrobbledTrack.name && this.lastTrack.artist.name != this.lastScrobbledTrack.artist.name)) {
-				this.lastFM.trackScrobble(this.lastTrack.name, this.lastTrack.artist.name, (function() { this.lastFM.trackNowPlaying(track.name, track.artist.name)}).bind(this));
+				this.lastFM.trackScrobble(this.lastTrack.name, this.lastTrack.artist.name, (function() {
+					if (track) {
+						this.lastFM.trackNowPlaying(track.name, track.artist.name)
+					}
+				}).bind(this));
 				this.lastScrobbledTrack = track;
 			}
 		} else if (track) {
