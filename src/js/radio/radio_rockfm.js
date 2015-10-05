@@ -26,10 +26,14 @@ var RadioRockFM = function(){
 		["Hole", "Celebrity Skin"];
 	this.songReplacements[["IRON MAIDEN", "TROOPER THE"]] =
 		["Iron Maiden", "The Trooper"];
+	this.songReplacements[["IGGY POP", "PASSENGER"]] =
+		["Iggy Pop", "The Passenger"];
 	this.songReplacements[["JETT JOAN & BLACKHEARTS", "I LOVE ROCK AND ROLL"]] =
 		["Joan Jett and the Blackhearts", "I Love Rock 'n' Roll"];
 	this.songReplacements[["JOE COCKER", "WTH A LITTLE HELP FROM MY FRIENDS"]] =
 		["Joe Cocker", "With A Little Help From My Friends"];
+	this.songReplacements[["KISS", "I WAS MADE FOR LOVIN YOU"]] =
+		["Kiss", "I Was Made for Lovin' You"];
 	this.songReplacements[["MEAT LOAF", "I'D DO ANYTHING FOR LOVE"]] =
 		["Meat Loaf", "I'd Do Anything for Love (But I Won't Do That)"];
 	this.songReplacements[["METALLICA", "FOR WHOM THE BELL TOLLS"]] =
