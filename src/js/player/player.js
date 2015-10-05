@@ -8,7 +8,6 @@ var Player = function(radio) {
 	this.set_radio(radio);
 
 	$(this.radioSelector).on('change input', (function() {
-		console.log($(this.radioSelector).val());
 		var radio = new window['' + $(this.radioSelector).val()]();
 		this.set_radio(radio);
 	}).bind(this));
@@ -39,11 +38,6 @@ var Player = function(radio) {
 		document.dispatchEvent(e);
 	}).bind(this));
 
-	/*
-	if (Cookies.get('playerVolume')) {
-		$(player).prop('volume', Cookies.get('playerVolume'));
-	}*/
-
 	$(this.volumeSlider).val($(this.player).prop("volume") * 100);
 
 	$(this.volumeSlider).on('change input', (function() {
@@ -63,6 +57,8 @@ var Player = function(radio) {
 
 	this.rds  = new RDS(this);
 	this.rds.rds_loop();
+
+	this.lastFM = new LastFMClient();
 };
 
 Player.prototype.toggle_mute = function() {

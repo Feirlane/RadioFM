@@ -63,7 +63,6 @@ var RDS = function(player) {
 	document.addEventListener('new_song', (function(e) {
 		var track = e.detail.track;
 		if (track) {
-			console.log(track);
 			$(this.dom_track).text(track.name);
 			$(this.dom_artist).text(track.artist.name);
 			$(this.dom_program_banner).hide();
@@ -81,7 +80,6 @@ var RDS = function(player) {
 				trackImage.one('load', function() { trackImage.show(); }).attr('src', track.album.image[2]["#text"]);
 			} else {
 				this.lfm.albumGetInfo(track.album.name, track.artist.name, function( albumInfo ) {
-					console.log(albumInfo);
 					trackImage.one('load', function() { trackImage.show(); }).attr('src',  albumInfo.album.image[2]["#text"]);
 				});
 			}

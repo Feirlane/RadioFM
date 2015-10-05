@@ -74,104 +74,79 @@ LastFM.prototype.trackGetCorrection = function(track, artist, callback) {
 
 	$.get(this.base_url, params, callback);
 }
-/*
-   LastFM.prototype.login(parameters, callback) {
 
-   callback = callback || function(){};
+LastFM.prototype.authGetSession = function(token, callback) {
+	callback = callback || console.log;
 
-   if (parameters.session_key) {
-   console.log("LastFM: Loging in with old session key");
-   console.log(parameters.session_key);
-   this.session_key = parameters.session_key;
-   } else if (parameters.token){
-   console.log("LastFM: Generating sesion key with token");
-   console.log(parameters.token);
-   this.auth(parameters.token, callback);
-   } else {
-   console.log("LastFM: No useful data found");
-   }
-   };
-
-   LastFM.prototype.userGetInfo()
-
-   getUserInfo = function(callback) {
-   exports.userInfo(function(data){
-   exports.user = data.user;
-   callback(data);
-   });
-   }
-
-   _getDefaultParams = function() {
-   return {"api_key": exports.api_key};
-   }
-
-   LastFM.prototype.authGetSession = function(token, callback) {
-
-   callback = callback || log;
-   var params = _getDefaultParams();
-   params["token"] = token;
-   params["method"] = "auth.getsession";
-   _sign(params);
-   params["format"] = "json";
-
-   $.get(baseUrl, params, callback);
-   }
-
-   exports.userInfo = function(callback) {
-   callback = callback || log;
-   var params = _getDefaultParams();
-   params["sk"] = this.session_key;
-   params["method"] = "user.getInfo";
-   _sign(params);
-   params["format"] = "json";
-
-   $.get(baseUrl, params, callback);
-   }
-
-   exports.nowPlaying = function(song, artist, duration, callback) {
-   callback = callback || console.log;
-   var params = _getDefaultParams();
-   params["sk"] = this.session_key;
-   params["method"] = "track.updateNowPlaying";
-   params["track"] = song;
-   params["artist"] = artist;
-   params["duration"] = duration + 5;
-   _sign(params);
-   params["format"] = "json";
-
-   $.post(baseUrl, params, callback);
-   }
-
-   exports.scrobble = function(song, artist, callback) {
-   callback = callback || log;
-   var params = _getDefaultParams();
-params["sk"] = this.session_key;
-params["method"] = "track.scrobble";
-params["track"] = song;
-params["artist"] = artist;
-params["timestamp"] = Math.floor(Date.now() / 1000);
-_sign(params);
-params["format"] = "json";
-
-$.post(baseUrl, params, callback);
-}
-
-
-exports.trackBuyLinks = function(track, artist, callback) {
-	callback = callback || log;
-	var params = _getDefaultParams();
-	params["method"] = "track.getBuyLinks";
-	params["track"] = track;
-	params["artist"] = artist;
-	params["country"] = 'es';
-	_sign(params);
+	var params = this.get_default_params();
+	params["token"] = token;
+	params["method"] = "auth.getsession";
+	this._sign(params);
 	params["format"] = "json";
 
-	$.get(baseUrl, params, callback);
+	$.ajax({
+		url: this.base_url,
+		data: params
+	}).success((function(data) {
+		if (data.session) {
+			this.session_key = data.session.key;
+			callback(data);
+		}
+	}).bind(this));
 }
 
-log = function( data ) {
-	//console.log(data);
+LastFM.prototype.userGetInfo = function(callback, user) {
+	callback = callback || console.log;
+	var params = this.get_default_params();
+	params["method"] = "user.getInfo";
+	params["sk"] = this.session_key;
+	if (user) {
+		params["user"] = user;
+	}
+	this._sign(params);
+	params["format"] = "json";
+
+	$.ajax({
+		url: this.base_url,
+		data: params
+	}).always(callback);
 }
-})(typeof exports === 'undefined' ? this['lastfm']={}: exports);
-*/
+
+LastFM.prototype.trackScrobble = function(track, artist, callback) {
+	callback = callback || console.log;
+
+	var params = this.get_default_params();
+	params["sk"] = this.session_key;
+	params["method"] = "track.scrobble";
+	params["track"] = track;
+	params["artist"] = artist;
+	params["timestamp"] = Math.floor(Date.now() / 1000);
+	this._sign(params);
+	params["format"] = "json";
+
+	$.ajax({
+		url: this.base_url,
+		data: params,
+		method: 'POST',
+	}).always(callback);
+}
+
+LastFM.prototype.trackNowPlaying = function(track, artist, callback) {
+	callback = callback || function(data) { console.log(data) };
+
+	var params = this.get_default_params();
+	params["method"] = "track.updateNowPlaying";
+	params["artist"] = artist;
+	params["track"] = track;
+	params["duration"] = 300;
+	params["sk"] = this.session_key;
+
+	this._sign(params);
+	params["format"] = "json";
+
+	$.ajax({
+		url: this.base_url,
+		data: params,
+		method: 'POST',
+	}).always(callback);
+}

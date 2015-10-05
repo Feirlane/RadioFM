@@ -39,7 +39,7 @@
 			<div id="recentContainer">
 			</div>
 			<div style="margin: 5px; clear: both">
-				<a style="display: none" id="lastFmLogIn" href="#"><i class="fa fa-lg fa-lastfm-square"></i> log in  to last.fm to scrobble</a>
+				<a id="lastFmLogIn" href="#"><i class="fa fa-lg fa-lastfm-square"></i> log in  to last.fm to scrobble</a>
 			</div>
 			</main>
 			<footer>
@@ -71,9 +71,27 @@
 		<script src="js/radio.min.js"></script>
 		<script src="js/player.min.js"></script>
 		<script>
+/*
+ * Function by David Morales on Stack Overflow
+ * http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript
+ */
+function getURLParameter(name) {
+	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+
 			var configManager = new ConfigManager();
-			var player = new Player(new window['' + configManager.get_radio()]);
-			player.set_volume(configManager.get_volume());
+			var lastRadioClass = configManager.get('radio');
+			var lastRadio = null;
+			try {
+				lastRadio = new window['' + lastRadioClass];
+			} catch(ex) {
+				lastRadio = new RadioRockFM();
+			}
+			var player = new Player(lastRadio);
+			player.set_volume(configManager.get('player_volume'));
+			var lastFM = new LastFM();
+
+			var session_id = configManager.get('session_id');
 		</script>
 	</body>
 </html>
