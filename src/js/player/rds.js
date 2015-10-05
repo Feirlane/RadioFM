@@ -78,12 +78,17 @@ var RDS = function(player) {
 			artistImage.hide();
 
 			// "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png";
-			if (track.album && track.album.image[2]["#text"]) {
-				trackImage.one('load', function() { trackImage.show(); }).attr('src', track.album.image[2]["#text"]);
+			if (track.album) {
+				if (track.album.image[2]["#text"]) {
+					trackImage.one('load', function() { trackImage.show(); }).attr('src', track.album.image[2]["#text"]);
+				} else {
+					this.lfm.albumGetInfo(track.album.name, track.artist.name, function( albumInfo ) {
+						trackImage.one('load', function() { trackImage.show(); }).attr('src',  albumInfo.album.image[2]["#text"]);
+					});
+				}
 			} else {
-				this.lfm.albumGetInfo(track.album.name, track.artist.name, function( albumInfo ) {
-					trackImage.one('load', function() { trackImage.show(); }).attr('src',  albumInfo.album.image[2]["#text"]);
-				});
+				trackImage.one('load', function() { trackImage.show(); }).attr('src', "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png");
+
 			}
 
 			if (track.wiki) {
