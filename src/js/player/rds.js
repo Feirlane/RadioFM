@@ -57,6 +57,8 @@ var RDS = function(player) {
 			$(this.dom_now_playing).hide();
 			$("#background").css({"background-image": ""});
 			$(this.dom_program_banner).show();
+			var e = new CustomEvent('new_song', {'detail': {'track': null}});
+			document.dispatchEvent(e);
 		}
 	}).bind(this));
 
