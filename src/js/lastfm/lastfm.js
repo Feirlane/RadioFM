@@ -7,6 +7,8 @@ var LastFM = function() {
 	this.base_url = "http://ws.audioscrobbler.com/2.0/";
 
 	this.get_default_params = function() { return {"api_key": this.api_key}; };
+
+	this.logger = function(data) { console.log("lastfm:"); console.log(data); };
 };
 
 LastFM.prototype._sign = function(params) {
@@ -27,7 +29,7 @@ LastFM.prototype._sign = function(params) {
 }
 
 LastFM.prototype.trackGetInfo = function(track, artist, callback) {
-	callback = callback || console.log;
+	callback = callback || this.logger;
 	var params = this.get_default_params();
 	params["method"] = "track.getInfo";
 	params["track"] = track;
@@ -42,7 +44,7 @@ LastFM.prototype.trackGetInfo = function(track, artist, callback) {
 }
 
 LastFM.prototype.albumGetInfo = function(album, artist, callback) {
-	callback = callback || console.log;
+	callback = callback || this.logger;
 	var params = this.get_default_params();
 	params["method"] = "album.getInfo";
 	params["album"] = artist;
@@ -58,7 +60,7 @@ LastFM.prototype.albumGetInfo = function(album, artist, callback) {
 }
 
 LastFM.prototype.artistGetInfo = function(artist, callback) {
-	callback = callback || console.log;
+	callback = callback || this.logger;
 	var params = this.get_default_params();
 	params["method"] = "artist.getInfo";
 	params["artist"] = artist;
@@ -73,7 +75,7 @@ LastFM.prototype.artistGetInfo = function(artist, callback) {
 }
 
 LastFM.prototype.trackGetCorrection = function(track, artist, callback) {
-	callback = callback || console.log;
+	callback = callback || this.logger;
 	var params = this.get_default_params();
 	params["method"] = "track.getCorrection";
 	params["track"] = track;
@@ -88,7 +90,7 @@ LastFM.prototype.trackGetCorrection = function(track, artist, callback) {
 }
 
 LastFM.prototype.authGetSession = function(token, callback) {
-	callback = callback || console.log;
+	callback = callback || this.logger;
 
 	var params = this.get_default_params();
 	params["token"] = token;
@@ -107,7 +109,7 @@ LastFM.prototype.authGetSession = function(token, callback) {
 }
 
 LastFM.prototype.userGetInfo = function(callback, user) {
-	callback = callback || console.log;
+	callback = callback || this.logger;
 	var params = this.get_default_params();
 	params["method"] = "user.getInfo";
 	params["sk"] = this.session_key;
@@ -124,7 +126,7 @@ LastFM.prototype.userGetInfo = function(callback, user) {
 }
 
 LastFM.prototype.trackScrobble = function(track, artist, callback) {
-	callback = callback || console.log;
+	callback = callback || this.logger;
 
 	var params = this.get_default_params();
 	params["sk"] = this.session_key;
@@ -143,7 +145,7 @@ LastFM.prototype.trackScrobble = function(track, artist, callback) {
 }
 
 LastFM.prototype.trackNowPlaying = function(track, artist, callback) {
-	callback = callback || function(data) { console.log(data) };
+	callback = callback || this.logger;
 
 	var params = this.get_default_params();
 	params["method"] = "track.updateNowPlaying";

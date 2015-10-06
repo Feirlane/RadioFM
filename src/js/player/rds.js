@@ -11,22 +11,34 @@ var RDS = function(player) {
 	this.lfm = new LastFM();
 
 	this.checkIfNeedsCorrection = function(track) {
+		console.log("rds: checking if needs correction");
+		console.log(track);
 		this.lfm.trackGetCorrection(track.name, track.artist.name, (function(data){
 			if (data.corrections.correction) {
+				console.log("\tcorrecting");
 				this.lfm.trackGetInfo(data.corrections.correction.track.name,
-							  data.corrections.correction.track.artist.name,
-							  function( data ){
-								  var e = new CustomEvent('new_song', {'detail': {'track': data.track}});
-								  document.dispatchEvent(e);
-							  });
+				 data.corrections.correction.track.artist.name,
+				 function( data ){
+					 var trackToSend = track;
+					 console.log(data);
+					 if (data.track) {
+						 trackToSend = data.track;
+					 }
+					 var e = new CustomEvent('new_song', {'detail': {'track': trackToSend}});
+					 document.dispatchEvent(e);
+				 });
 				return;
 			}
-			var e = new CustomEvent('new_song', {'detail': {'track': track}});
+			console.log("\tno correction needed")
+				var e = new CustomEvent('new_song', {'detail': {'track': track}});
 			document.dispatchEvent(e);
 		}).bind(this));
 	}
 
 	this.checkIfNeedsReversing = function(lfmTrack, track) {
+
+		console.log("rds: Checking if needs reversing");
+		console.log(track);
 
 		var originalTrack = lfmTrack.track;
 		if (!originalTrack) {
@@ -42,8 +54,10 @@ var RDS = function(player) {
 		this.lfm.trackGetInfo(track.artist.name, track.name, (function( data ){
 			var reversedTrack = data.track;
 			if (reversedTrack && (parseInt(originalTrack.playcount) < parseInt(reversedTrack.playcount))) {
+				console.log("\treversing track<->artist");
 				this.checkIfNeedsCorrection(reversedTrack);
 			} else {
+				console.log("\tno reversing needed");
 				this.checkIfNeedsCorrection(originalTrack);
 			}
 		}).bind(this));
@@ -51,9 +65,12 @@ var RDS = function(player) {
 
 	document.addEventListener('new_rds', (function(e) {
 		var track = e.detail.track;
+		console.log("rds: new_rds");
+		console.log(track);
 		if (track) {
 			this.lfm.trackGetInfo(track.name, track.artist.name, (function(data) { this.checkIfNeedsReversing(data, track)}).bind(this));
 		} else {
+			console.log("rds: track is null, firing null new_song");
 			$(this.dom_now_playing).hide();
 			$("#background").css({"background-image": ""});
 			$(this.dom_program_banner).show();
@@ -64,6 +81,8 @@ var RDS = function(player) {
 
 	document.addEventListener('new_song', (function(e) {
 		var track = e.detail.track;
+		console.log("rds: new_song listener");
+		console.log(track);
 		if (track) {
 			$(this.dom_track).text(track.name);
 			$(this.dom_artist).text(track.artist.name);
@@ -80,13 +99,22 @@ var RDS = function(player) {
 			// "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png";
 			if (track.album) {
 				if (track.album.image[2]["#text"]) {
+					console.log("\tsetting track image from track.album");
 					trackImage.one('load', function() { trackImage.show(); }).attr('src', track.album.image[2]["#text"]);
 				} else {
+					console.debug("\tmissing track image, loading album details");
 					this.lfm.albumGetInfo(track.album.name, track.artist.name, function( albumInfo ) {
-						trackImage.one('load', function() { trackImage.show(); }).attr('src',  albumInfo.album.image[2]["#text"]);
+						if (albumInfo.album.image[2]["#text"]) {
+							console.log("\tloading track image from album");
+							trackImage.one('load', function() { trackImage.show(); }).attr('src',  albumInfo.album.image[2]["#text"]);
+						} else {
+							console.log("\timage also missing on album, loading white");
+							trackImage.one('load', function() { trackImage.show(); }).attr('src', "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png");
+						}
 					});
 				}
 			} else {
+				console.log("\tthe whole of track.album is missing, loading white");
 				trackImage.one('load', function() { trackImage.show(); }).attr('src', "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png");
 
 			}
