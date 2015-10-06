@@ -26,12 +26,17 @@ var Player = function(radio) {
 
 		var volume = $(this.player).prop('volume');
 
-		if ($(this.player).prop("volume") == 0 || $(this.player).prop("muted")) {
-			$(this.muteButton).removeClass("fa-volume-up");
+		$(this.muteButton).removeClass("fa-volume-up");
+		$(this.muteButton).removeClass("fa-volume-down");
+		$(this.muteButton).removeClass("fa-volume-off");
+		if (volume <= 0.01 || $(this.player).prop("muted")) {
 			$(this.muteButton).addClass("fa-volume-off");
 		} else {
-			$(this.muteButton).removeClass("fa-volume-off");
-			$(this.muteButton).addClass("fa-volume-up");
+			if (volume < 0.5 ) {
+				$(this.muteButton).addClass("fa-volume-down");
+			} else {
+				$(this.muteButton).addClass("fa-volume-up");
+			}
 		}
 
 		var e = new CustomEvent('volume_changed', {'detail': {'volume': volume * 100}});
