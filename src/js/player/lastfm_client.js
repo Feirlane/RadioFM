@@ -42,26 +42,34 @@ var LastFMClient = function(radio) {
 		console.log(track);
 
 		if (this.lastTrack) {
+			console.log("\twe have a track to scrobble");
 			if (!this.lastScrobbledTrack || (this.lastTrack.name != this.lastScrobbledTrack.name && this.lastTrack.artist.name != this.lastScrobbledTrack.artist.name)) {
+				console.log("\tthe new track is different from the one saved for scrobbling");
 				this.lastFM.trackScrobble(this.lastTrack.name,
 				 this.lastTrack.artist.name,
 				 (function(data) {
-					 console.log("Scrobble result:");
+					 console.log("\tscrobble result:");
 					 console.log(data);
 					 /*
 					  * This needs to go in the callback because if the scrobble request arrives after the nowPlaying update lastfm will whipe the
 					  * nowplaying status
 					  */
 					 if (track) {
+						 console.log("\tupdating nowplaying after scrobble");
 						 this.lastFM.trackNowPlaying(track.name, track.artist.name);
 					 }
+
+					 this.lastScrobbledTrack = this.lastTrack;
+					 this.lastTrack = track;
 				 }).bind(this));
-				this.lastScrobbledTrack = track;
 			}
 		} else if (track) {
+			console.log("\twe didn't have a track, so just update the nowplaying")
 			this.lastFM.trackNowPlaying(track.name, track.artist.name);
+			this.lastTrack = track;
+		} else {
+			this.lastTrack = track;
 		}
 
-		this.lastTrack = track;
 	}).bind(this));
 }
