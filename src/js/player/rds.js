@@ -67,6 +67,10 @@ var RDS = function(player) {
 		var track = e.detail.track;
 		console.log("rds: new_rds");
 		console.log(track);
+		var trackImage = $("#trackImage");
+		trackImage.hide();
+		var artistImage = $("#artistImage");
+		artistImage.hide();
 		if (track) {
 			this.lfm.trackGetInfo(track.name, track.artist.name, (function(data) { this.checkIfNeedsReversing(data, track)}).bind(this));
 		} else {
@@ -92,9 +96,7 @@ var RDS = function(player) {
 			$(".artistLink").attr("href", track.artist.url);
 
 			var trackImage = $("#trackImage");
-			trackImage.hide();
 			var artistImage = $("#artistImage");
-			artistImage.hide();
 
 			// "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png";
 			if (track.album) {
@@ -109,13 +111,13 @@ var RDS = function(player) {
 							trackImage.one('load', function() { trackImage.show(); }).attr('src',  albumInfo.album.image[2]["#text"]);
 						} else {
 							console.log("\timage also missing on album, loading white");
-							trackImage.one('load', function() { trackImage.show(); }).attr('src', "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png");
+							trackImage.one('load', function() { trackImage.show(); }).attr('src', "assets/images/cover.svg");
 						}
 					});
 				}
 			} else {
 				console.log("\tthe whole of track.album is missing, loading white");
-				trackImage.one('load', function() { trackImage.show(); }).attr('src', "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png");
+				trackImage.one('load', function() { trackImage.show(); }).attr('src', "assets/images/cover.svg");
 
 			}
 

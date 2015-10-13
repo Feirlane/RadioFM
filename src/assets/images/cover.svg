@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!--
+Created by Marcos 'Feirlane' López <feirlane@gmail.com>
+Based on a sketch by Diego Martíns Calo
+
+This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
+To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/
+-->
+<svg
+xmlns="http://www.w3.org/2000/svg"
+width="150px"
+height="150px"
+viewBox="0 0 150 150">
+	<defs>
+		<mask id="hole">
+			<rect width="100%" height="100%" fill="white"/>
+			<circle cx="75" cy="75" r="9.5" fill="black"/>
+		</mask>
+		<linearGradient id="disc_gradient" x1="100%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" stop-color="#000000"/>
+			<stop offset="50%" stop-color="#444444"/>
+			<stop offset="100%" stop-color="#000000"/>
+		</linearGradient>
+	</defs>
+
+	<circle fill="url(#disc_gradient)" cx="75" cy="75" r="72" mask="url(#hole)"/>
+	<g id="rotating">
+		<circle fill="#F39200" cx="75" cy="75" r="30" mask="url(#hole)"/>
+		<g id="text" text-anchor="middle">
+			<text x="75" y="58" style="font-weight: bold; font-size: 6px">No cover</text>
+			<text x="75" y="63" style="font-size: 4px">Placeholder image text</text>
+			<text x="54" y="75" style="font-weight: bold; font-size: 4px">RFM</text>
+			<text x="96" y="75" style="font-weight: bold; font-size: 4px">RFM</text>
+			<text x="75" y="89" style="font-size: 3px">Fake vinyl description</text>
+			<text x="75" y="94" style="font-size: 3px">Fake copyright notice</text>
+		</g>
+
+		<g id="lines" stroke="#706F6F" fill="none" stroke-width="0.5" stroke-miterlimit="10">
+			<ellipse cx="75" cy="75" rx="37" ry="38"/>
+			<ellipse cx="75" cy="75" rx="44" ry="45"/>
+			<ellipse cx="75" cy="75" rx="51" ry="52"/>
+			<ellipse cx="75" cy="75" rx="58" ry="59"/>
+			<ellipse cx="75" cy="75" rx="65" ry="66"/>
+		</g>
+		<animateTransform attributeType="XML" attributeName="transform" type="rotate" from="0 75 75" to="360 75 75" begin="0s" dur="1.8s" repeatCount="indefinite"/>
+	</g>
+</svg>
