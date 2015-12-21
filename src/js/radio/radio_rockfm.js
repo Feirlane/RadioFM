@@ -1,5 +1,5 @@
 var RadioRockFM = function(){
-	this.rds_url = 'http://crossorigin.me/http://player.rockfm.fm/rdsrock.php?';
+	this.rds_url = '//crossorigin.me/http://player.rockfm.fm/rdsrock.php?';
 	this.program_banner_base = 'http://player.rockfm.fm/xml/img/';
 
 	this.last_track = null;
@@ -52,6 +52,8 @@ var RadioRockFM = function(){
 		["The Lemonheads", "Mrs. Robinson"];
 	this.songReplacements[["THE DOORS", "L.A. WOMAN MP3"]] =
 		["The Doors", "L.A. Woman"];
+	this.songReplacements[["THE OFFSPRING", "CAN'T GET MY (HEAD AROUND YOU)"]] =
+		["The Offspring", "(Can't Get My) Head Around You"];
 	this.songReplacements[["THE OFFSPRING", "KIDS AREN'T ALLRIGHT"]] =
 		["The Offspring", "The Kids Aren't Alright"];
 	this.songReplacements[["THE OFFSPRING", "PRETTY FLY (FOR THE WHITE GUY)"]] =
@@ -72,6 +74,9 @@ var RadioRockFM = function(){
 		["Burning", "¿Que Hace Una Chica Como Tu En Un Sitio Como Este?"];
 	this.songReplacements[["YOUNG RASCALS", "GOOD LOVIN'"]] =
 		["The Young Rascals", "Good Lovin'"];
+
+	this.songIgnores = [];
+	this.songIgnores.push(["Jingle", "EPYSB"]);
 
 	var e = new CustomEvent('new_radio', {'detail': {'radio': this, 'name': 'RadioRockFM'}});
 	document.dispatchEvent(e);
@@ -144,7 +149,9 @@ RadioRockFM.prototype.rockfm_get_track = function(data) {
 	}
 
 	comparison = [track.name, track.artist.name]
-	if (this.songReplacements[comparison] !== undefined) {
+	if (this.songIgnores.indexOf(comparison) != -1) {
+		track = null;
+	} else if (this.songReplacements[comparison] !== undefined) {
 		var replacement = this.songReplacements[comparison];
 		track.name = replacement[0];
 		track.artist.name = replacement[1]

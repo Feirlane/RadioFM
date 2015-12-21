@@ -4,7 +4,7 @@ var LastFM = function() {
 	this.session_key = '';
 
 	this.base_params = {"api_key": this.api_key};
-	this.base_url = "http://ws.audioscrobbler.com/2.0/";
+	this.base_url = "//ws.audioscrobbler.com/2.0/";
 
 	this.get_default_params = function() { return {"api_key": this.api_key}; };
 
