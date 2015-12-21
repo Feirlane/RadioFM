@@ -2,10 +2,10 @@
 @thumb-color: #000000;
 
 @thumb-radius: 3px;
-@thumb-height: 1.33em;
+@thumb-height: 1.5em;
 @thumb-width: 10px;
 
-@track-height: 3px;
+@track-height: 0.2em;
 
 @contrast: 5%;
 
@@ -25,6 +25,7 @@
 input[type=range] {
   -webkit-appearance: none;
   margin: @thumb-height/2 5px;
+  background: none;
 
   &:focus {
     outline: none;
@@ -37,6 +38,8 @@ input[type=range] {
 
   &::-webkit-slider-thumb {
     .thumb();
+    position: relative;
+    top: -((@thumb-height - @track-height) / 2);
     -webkit-appearance: none;
   }
 
