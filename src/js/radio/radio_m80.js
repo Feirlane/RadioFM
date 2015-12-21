@@ -1,5 +1,5 @@
 var RadioM80 = function(){
-	this.rds_url = 'http://www.yes.fm/a/radio/M80Radio/getWhatsOn?';
+	this.rds_url = '//www.yes.fm/a/radio/M80Radio/getWhatsOn?';
 
 	this.last_track = null;
 	this.last_date = null;
