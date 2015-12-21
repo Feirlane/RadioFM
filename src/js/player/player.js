@@ -85,6 +85,7 @@ Player.prototype.play_pause = function() {
 Player.prototype.set_source = function(source) {
 	$(this.player).children().first().attr("src", source);
 	$(this.player).trigger("load");
+	$(this.player).prop("muted", false);
 }
 
 Player.prototype.set_radio = function(radio) {
