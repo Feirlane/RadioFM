@@ -34,10 +34,7 @@ module.exports = function(grunt) {
 				options: {
 					separator: ';',
 					screwIE8: true,
-					compress: {
-						drop_console: false,
-					},
-					compress: false,
+					compress: {},
 					beautify: true,
 				},
 				files: {
