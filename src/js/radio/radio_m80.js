@@ -1,6 +1,6 @@
 var RadioM80 = function(){
-	this.rds_url = 'http://cors.io?u=http://www.yes.fm/a/radio/fm/hasonado/M80RADIO?';
-	this.program_url = 'http://cors.io?u=http://www.yes.fm/a/radio/fm/4/ficha?'
+	this.rds_url = 'cors.php?url=http://www.yes.fm/a/radio/fm/hasonado/M80RADIO?';
+	this.program_url = 'cors.php?url=http://www.yes.fm/a/radio/fm/4/ficha?'
 
 	this.last_track = null;
 	this.last_date = null;

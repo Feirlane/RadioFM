@@ -1,5 +1,5 @@
 var RadioRockFM = function(){
-	this.rds_url = '//crossorigin.me/http://player.rockfm.fm/rdsrock.php?';
+	this.rds_url = 'cors.php?url=http://player.rockfm.fm/rdsrock.php?';
 	this.program_banner_base = 'http://player.rockfm.fm/xml/img/';
 
 	this.last_track = null;

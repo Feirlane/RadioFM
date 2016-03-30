@@ -64,7 +64,7 @@ module.exports = function(grunt) {
 					{
 						expand: true,
 						cwd: '<%= paths.src.html %>',
-						src: ['*.html'],
+						src: ['*.html', '*.php'],
 						dest: '<%= paths.dest.html %>',
 						filter: 'isFile'
 					},
