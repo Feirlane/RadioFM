@@ -8,6 +8,7 @@ var RadioRockFM = function(){
 
 	this.songReplacements = {};
 	this.songReplacements[["", ""]] = ["", ""];
+	/*
 	this.songReplacements[["AEROSMITH FEAT.RUN DMC","WALK THIS WAY"]] =
 		["Run-D.M.C.", "Walk This Way"];
 	this.songReplacements[["BEASTIE BOYS", "FIGHT FOR YOU RIGHT"]] =
@@ -74,6 +75,7 @@ var RadioRockFM = function(){
 		["Burning", "¿Que Hace Una Chica Como Tu En Un Sitio Como Este?"];
 	this.songReplacements[["YOUNG RASCALS", "GOOD LOVIN'"]] =
 		["The Young Rascals", "Good Lovin'"];
+		*/
 
 	this.songIgnores = [];
 	this.songIgnores.push(["Jingle", "EPYSB"]);
@@ -91,8 +93,8 @@ RadioRockFM.prototype.get_current_track = function() {
 };
 
 RadioRockFM.prototype.radio_name = 'RockFM';
-RadioRockFM.prototype.stream_url = 'http://195.55.74.208/cope/rockfm.mp3';
-RadioRockFM.prototype.stream_mimetype = 'audio/mpeg';
+RadioRockFM.prototype.stream_urls = ['http://195.55.74.211/cope/rockfm.aac', 'http://195.55.74.211/cope/rockfm-low.mp3'];
+RadioRockFM.prototype.stream_mimetypes = ['audio/mpeg', 'audio/mpeg'];
 RadioRockFM.prototype.class_name = 'RadioRockFM';
 
 RadioRockFM.prototype.rockfm_get_track = function(data) {

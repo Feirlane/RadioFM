@@ -1,11 +1,13 @@
 var RDS = function(player) {
 
+	this.current_track = null;
+
 	this.player = player;
 	this.timeout = 2 * 1000;
 
 	this.dom_now_playing = $("#nowplaying");
-	this.dom_track = $("#track");
-	this.dom_artist = $("#artist");
+	this.dom_track = $("#track_header");
+	this.dom_artist = $("#artist_header");
 	this.dom_program_banner = $("#programBanner");
 
 	this.lfm = new LastFM();
@@ -65,18 +67,19 @@ var RDS = function(player) {
 
 	document.addEventListener('new_rds', (function(e) {
 		var track = e.detail.track;
+		this.current_track = track;
 		console.log("rds: new_rds");
 		console.log(track);
-		var trackImage = $("#trackImage");
+		var trackImage = $("#track_image");
 		trackImage.hide();
-		var artistImage = $("#artistImage");
+		var artistImage = $("#artist_image");
 		artistImage.hide();
+		$("#background").css({"background-image": ""});
 		if (track) {
 			this.lfm.trackGetInfo(track.name, track.artist.name, (function(data) { this.checkIfNeedsReversing(data, track)}).bind(this));
 		} else {
 			console.log("rds: track is null, firing null new_song");
 			$(this.dom_now_playing).hide();
-			$("#background").css({"background-image": ""});
 			$(this.dom_program_banner).show();
 			var e = new CustomEvent('new_song', {'detail': {'track': null}});
 			document.dispatchEvent(e);
@@ -88,15 +91,16 @@ var RDS = function(player) {
 		console.log("rds: new_song listener");
 		console.log(track);
 		if (track) {
-			$(this.dom_track).text(track.name);
+			$("#track_header").html(track.name);
 			$(this.dom_artist).text(track.artist.name);
 			$(this.dom_program_banner).hide();
 			$(this.dom_now_playing).show();
-			$(".trackLink").attr("href", track.url);
-			$(".artistLink").attr("href", track.artist.url);
 
-			var trackImage = $("#trackImage");
-			var artistImage = $("#artistImage");
+			$(".track_link").attr("href", track.url);
+			$(".artist_link").attr("href", track.artist.url);
+
+			var trackImage = $("#track_image");
+			var artistImage = $("#artist_image");
 
 			// "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/1px-Solid_white.svg.png";
 			if (track.album) {
@@ -150,6 +154,7 @@ var RDS = function(player) {
 
 	document.addEventListener('new_radio', (function(e) {
 		$(this.dom_now_playing).hide();
+		this.current_track = null;
 	}).bind(this));
 
 };

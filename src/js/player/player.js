@@ -83,14 +83,24 @@ Player.prototype.play_pause = function() {
 	}
 
 Player.prototype.set_source = function(source) {
-	$(this.player).children().first().attr("src", source);
+	/*
+	 * I have no idea why I can't create the <source> elements and then append them
+	 * to the player, but this way seems to work
+	 */
+
+	var newHtml = "";
+	$(this.player).empty();
+	$.each(source.stream_urls, function(index, element) {
+		newHtml += '<source src="' + element + '" type="' + source.stream_mimetypes[index] + '">';
+	});
+	$(this.player).html(newHtml);
 	$(this.player).trigger("load");
 	$(this.player).prop("muted", false);
 }
 
 Player.prototype.set_radio = function(radio) {
 	this.radio = radio;
-	this.set_source(radio.stream_url);
+	this.set_source(radio);
 	$(this.radioSelector).val(radio.class_name);
 }
 

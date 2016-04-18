@@ -27,27 +27,31 @@
 				</div>
 			</header>
 			<main>
-			<p id="rockfm" style="text-align:center"><img id="programBanner" src=""></p>
-			<div id="nowplaying" style="display:none">
-				<a class="trackLink" src="#"><h2 id="track"></h2></a> - <a class="artistLink" src="#"><h3 id="artist"></h3></a>
-				<a class="trackLink"><span class="updatableImageContainer"><img id="trackImage"/></span></a>
-				<p class="bio" id="trackBio"></p>
-				<hr style="visibility:hidden; clear:both;"><!-- Force the remaining content to be below the track image -->
-				<a class="artistLink"><span class="updatableImageContainer"><img id="artistImage"/></span></a>
-				<p class="bio" id="artistBio"></p>
-			</div>
-			<div style="clear:both"></div>
-			<div id="recentContainer">
-			</div>
-			<div style="margin: 5px; clear: both">
-				<a id="lastFmLogIn" href="#"><i class="fa fa-lg fa-lastfm-square"></i> log in  to last.fm to scrobble</a>
-			</div>
+				<section id="program_banner_container" style="text-align:center"><img id="programBanner" src=""></section>
+				<section id="nowplaying" style="display:none">
+					<div id="track_info_container">
+						<div id="track_links_container" style="display:inline">
+							<a class="track_link" src="#"><h2 id="track_header"></h2></a> - <a class="artist_link" src="#"><h3 id="artist_header"></h3></a>
+						</div>
+						<a class="track_link"><span class="updatableImageContainer"><img id="track_image"/></span></a>
+						<p class="bio" id="trackBio"></p>
+					</div>
+					<hr style="visibility:hidden; clear:both;"><!-- Force the remaining content to be below the track image -->
+					<div class="artist_info_container">
+						<a class="artist_link"><span class="updatableImageContainer"><img id="artist_image"/></span></a>
+						<p class="bio" id="artistBio"></p>
+					</div>
+				</section>
+				<div style="clear:both"></div>
+				<div style="margin: 5px; clear: both">
+					<a id="lastFmLogIn" href="#"><i class="fa fa-lg fa-lastfm-square"></i> log in  to last.fm to scrobble</a>
+				</div>
 			</main>
 			<footer>
 				<div>
 				</div>
 				<div>
-					song data from <a target="blank_" href="//last.fm"><img src="http://cdn.last.fm/flatness/badges/lastfm_black_small.gif"></a>
+					song data from <a target="blank_" href="http://last.fm"><i class="fa fa-lg fa-lastfm-square"></i> last.fm</a>
 					<br>
 					<a href="#" onClick="showReportDialog()">report an error</a>
 				</div>
@@ -55,10 +59,10 @@
 		</div>
 		<div id="reportOverlay" onClick="dismissReportDialog()">
 			<div id="reportDialog" onClick="event.stopPropagation()">
-				<h3>Report an error</h3><br>
-				<label>Original RockFM Data: </label><input id="reportData" disabled="true"><br>
-				<label>Track:</label><input id="reportTrack" disabled="true"><br>
-				<label>Artist:</label><input id="reportArtist" disabled="true"><br>
+				<h3>Report an error</h3><br><br>
+				<!-- <label>Original RockFM Data: </label><input id="reportData" disabled="true"><br> -->
+				<label>Current Track:</label><input id="reportTrack" disabled="true"><br>
+				<label>Current Artist:</label><input id="reportArtist" disabled="true"><br>
 				<br>
 				<label>Suggested Track:</label><input id="suggestedTrack"><br>
 				<label>Suggested Artist:</label><input id="suggestedArtist"><br>
@@ -72,6 +76,21 @@
 		<script src="js/radio.min.js"></script>
 		<script src="js/player.min.js"></script>
 		<script>
+function showReportDialog() {
+	$("#reportTrack").val(player.rds.current_track.name);
+	$("#reportArtist").val(player.rds.current_track.artist.name);
+	$("#reportOverlay").fadeIn();
+}
+
+function dismissReportDialog() {
+	$.post('//')
+	$("#reportOverlay").fadeOut();
+}
+
+function submitReport() {
+	dismissReportDialog();
+}
+
 /*
  * Function by David Morales on Stack Overflow
  * http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript
@@ -80,19 +99,19 @@ function getURLParameter(name) {
 	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
 }
 
-			var configManager = new ConfigManager();
-			var lastRadioClass = configManager.get('radio');
-			var lastRadio = null;
-			try {
-				lastRadio = new window['' + lastRadioClass];
-			} catch(ex) {
-				lastRadio = new RadioRockFM();
-			}
-			var player = new Player(lastRadio);
-			player.set_volume(configManager.get('player_volume'));
-			var lastFM = new LastFM();
+var configManager = new ConfigManager();
+var lastRadioClass = configManager.get('radio');
+var lastRadio = null;
+try {
+	lastRadio = new window['' + lastRadioClass];
+} catch(ex) {
+	lastRadio = new RadioRockFM();
+}
+var player = new Player(lastRadio);
+player.set_volume(configManager.get('player_volume'));
+var lastFM = new LastFM();
 
-			var session_id = configManager.get('session_id');
+var session_id = configManager.get('session_id');
 		</script>
 	</body>
 </html>
