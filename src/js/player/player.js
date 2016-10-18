@@ -15,6 +15,7 @@ var Player = function(radio) {
 	$(this.player).on('play playing', (function() {
 		$(this.playPauseButton).removeClass("fa-play");
 		$(this.playPauseButton).addClass("fa-pause");
+		$(this.player).prop("muted", false);
 	}).bind(this));
 
 	$(this.player).on('pause ended', (function() {
